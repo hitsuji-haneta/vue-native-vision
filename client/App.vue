@@ -1,16 +1,13 @@
 <template>
   <root>
     <view class="container">
-      <camera class="camera" :type="this.type" ref="camera">
-        <view class="wrapper">
-          <touchable-opacity :on-press="takePicture" class="touchable">
-            <material-icons
-              name="camera"
-              :size="70"
-            />
-          </touchable-opacity>
-        </view>
-      </camera>
+      <camera class="camera" :type="this.type" ref="camera" />
+      <view class="wrapper">
+        <text class="text">hello, world</text>
+        <touchable-opacity :on-press="takePicture" class="touchable">
+          <material-icons name="camera" :size="70" />
+        </touchable-opacity>
+      </view>
     </view>
   </root>
 </template>
@@ -19,7 +16,7 @@
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
 import { Root, Toast } from "native-base";
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default {
   data: function() {
@@ -58,25 +55,27 @@ export default {
 <style>
 .container {
   background-color: white;
-  /* justify-content: center; */
   flex: 1;
 }
 .camera {
-  flex: 1;
+  flex: 3;
+  background-color: transparent;
 }
 .wrapper {
-  background-color: transparent;
-  flex-direction: row;
   flex: 1;
+  flex-direction: column;
+  align-items: center;
+  background-color: gainsboro;
 }
-.text-color-primary {
-  color: blue;
+.text {
+  flex: 1;
+  font-size: 40;
+  margin: 10;
 }
 .touchable {
   flex: 1;
   align-items: center;
-  align-self: flex-end;
-  margin-bottom: 50;
+  align-self: center;
 }
 .button {
   color: white;
