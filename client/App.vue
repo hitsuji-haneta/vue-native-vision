@@ -1,17 +1,10 @@
 <template>
-  <root>
-    <camera-screen />
-  </root>
+  <setup />
 </template>
 
 <script>
-import { Root } from "native-base";
-import CameraScreen from "./src/components/CameraScreen";
-
+import Setup from "./src/boot/setup.vue";
 export default {
-  components: {
-    CameraScreen,
-    Root
-  }
+  components: { Setup }
 };
 </script>
