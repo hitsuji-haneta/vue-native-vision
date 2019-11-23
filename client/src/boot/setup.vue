@@ -11,7 +11,6 @@ import { VueNativeBase } from "native-base";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import { firestorePlugin } from "vuefire";
-import "../plugins/db";
 import App from "../App.vue";
 // registering all native-base components to the global scope of the Vue
 Vue.use(VueNativeBase);

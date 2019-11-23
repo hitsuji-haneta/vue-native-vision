@@ -15,6 +15,8 @@ import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
 import { Toast } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
+import * as fetch from "node-fetch";
+import { db, storage } from "../plugins/db";
 
 export default {
   data: function() {
@@ -33,13 +35,35 @@ export default {
   },
   methods: {
     takePicture: async function() {
-      const pictureData = await this.$refs.camera.takePictureAsync();
-      Toast.show({
-        text: "Success",
-        buttonText: "Okay",
-        duration: 2000
-      });
-      console.log("Took a pictuer! : ", pictureData.uri);
+      try {
+        const pictureData = await this.$refs.camera.takePictureAsync();
+        if (!pictureData.cancelled) {
+          const uri = pictureData.uri;
+          const myRequest = new Request(uri);
+          console.log('uri: ', uri);
+          const response = await fetch(myRequest);
+          console.log('check2');
+          const blob = await response.blob();
+          console.log('check3');
+          const ref = storage.ref().child("test");
+          console.log('check4');
+          ref.put(blob);
+
+          Toast.show({
+            text: "Success",
+            buttonText: "OK",
+            duration: 2000
+          });
+          console.log("Took a pictuer! : ", uri);
+        }
+      } catch (err) {
+        console.log(JSON.stringify(err));
+        Toast.show({
+          text: JSON.stringify(err),
+          buttonText: "OK",
+          duration: 2000
+        });
+      }
     }
   },
   components: {
@@ -73,9 +97,5 @@ export default {
   flex: 1;
   align-items: center;
   align-self: center;
-}
-.button {
-  color: white;
-  background-color: blue;
 }
 </style>
