@@ -12,6 +12,7 @@
 <script>
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
+import { Toast } from "native-base";
 import { FontAwesome } from "@expo/vector-icons";
 import { storage } from "../lib/db";
 import store from "../store";
@@ -51,23 +52,23 @@ export default {
           const ref = storage.ref().child(this.userId);
           await ref.put(blob);
 
-          // Toast.show({
-          //   text: "Success",
-          //   buttonText: "OK",
-          //   duration: 2000
-          // });
-          console.log("Took a pictuer! : ", uri);
-          alert("success");
+          Toast.show({
+            text: "アップロードが完了しました",
+            buttonText: "OK",
+            duration: 2000
+          });
+          console.log("Image sended : ", uri);
+          // alert("success");
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
         alert(JSON.stringify(err));
         // throw Error(err);
-        // Toast.show({
-        //   text: JSON.stringify(err),
-        //   buttonText: "OK",
-        //   duration: 2000
-        // });
+        Toast.show({
+          text: 'アップロードに失敗しました',
+          buttonText: "OK",
+          duration: 2000
+        });
       }
     }
   },
