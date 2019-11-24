@@ -1,17 +1,20 @@
 <template>
   <view class="container">
+    <text>{{ userId }}</text>
     <text>{{ text }}</text>
-    <image  v-if="imageUrl"  :style="{width: 200, height: 200}" :source="{uri: imageUrl}" />
+    <image v-if="imageUrl" :style="{width: 200, height: 200}" :source="{uri: imageUrl}" />
   </view>
 </template>
 
 <script>
-import { db, storage } from "../plugins/db";
+import { db, storage } from "../lib/db";
+import store from '../store';
 
 export default {
   data() {
     return {
       text: "hello",
+      userId: store.state.userId,
       imageUrl: null
     };
   },

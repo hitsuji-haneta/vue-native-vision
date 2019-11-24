@@ -12,9 +12,10 @@ import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import { firestorePlugin } from "vuefire";
 import App from "../App.vue";
-// registering all native-base components to the global scope of the Vue
+
 Vue.use(VueNativeBase);
 Vue.use(firestorePlugin);
+
 export default {
   components: { App, AppLoading },
   data() {

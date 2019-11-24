@@ -13,7 +13,7 @@
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import { FontAwesome } from "@expo/vector-icons";
-import { storage } from "../plugins/db";
+import { storage } from "../lib/db";
 
 export default {
   data: function() {
