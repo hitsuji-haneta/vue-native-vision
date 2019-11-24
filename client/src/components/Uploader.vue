@@ -14,12 +14,18 @@ import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import { FontAwesome } from "@expo/vector-icons";
 import { storage } from "../lib/db";
+import store from "../store";
 
 export default {
   data: function() {
     return {
       hasCameraPermission: false
     };
+  },
+  computed: {
+    userId() {
+      return store.state.userId;
+    }
   },
   mounted: async function() {
     try {
@@ -42,7 +48,7 @@ export default {
           const uri = image.uri;
           const response = await fetch(uri);
           const blob = await response.blob();
-          const ref = storage.ref().child("test");
+          const ref = storage.ref().child(this.userId);
           await ref.put(blob);
 
           // Toast.show({

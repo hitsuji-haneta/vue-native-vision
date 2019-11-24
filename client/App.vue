@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Setup from "./src/boot/setup.vue";
+import Setup from "./src/Setup.vue";
 export default {
   components: { Setup }
 };

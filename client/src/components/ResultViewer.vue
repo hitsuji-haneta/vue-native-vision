@@ -8,22 +8,26 @@
 
 <script>
 import { db, storage } from "../lib/db";
-import store from '../store';
+import store from "../store";
 
 export default {
   data() {
     return {
       text: "hello",
-      userId: store.state.userId,
       imageUrl: null
     };
+  },
+  computed: {
+    userId() {
+      return store.state.userId;
+    }
   },
   mounted() {
     this.getLabels();
   },
   methods: {
     getLabels: async function() {
-      const doc = db.collection("labels").doc("test");
+      const doc = db.collection("labels").doc(this.userId);
       const observer = doc.onSnapshot(snapshot => {
         const data = snapshot.data();
         if (data) {
@@ -40,7 +44,7 @@ ${descriptions[2]} ${scores[2]}点`;
       });
     },
     getImages: async function() {
-      const ref = storage.ref().child("test");
+      const ref = storage.ref().child(this.userId);
       const url = await ref.getDownloadURL();
       this.imageUrl = url;
     }

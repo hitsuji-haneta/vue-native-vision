@@ -10,6 +10,7 @@ const store = new Vuex.Store({
   mutations: {
     setUserId(state, userId) {
       state.userId = userId;
+      console.log('set!! ', state.userId);
     }
   }
 });
