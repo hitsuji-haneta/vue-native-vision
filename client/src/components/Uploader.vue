@@ -13,7 +13,7 @@
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import { FontAwesome } from "@expo/vector-icons";
-import { db, storage } from "../plugins/db";
+import { storage } from "../plugins/db";
 
 export default {
   data: function() {
@@ -39,15 +39,10 @@ export default {
             : await ImagePicker.launchImageLibraryAsync();
         console.log(image);
         if (!image.cancelled) {
-          console.log("check1");
           const uri = image.uri;
-          console.log("uri: ", uri);
           const response = await fetch(uri);
-          console.log("check2");
           const blob = await response.blob();
-          console.log("check3");
           const ref = storage.ref().child("test");
-          console.log("check4");
           await ref.put(blob);
 
           // Toast.show({
