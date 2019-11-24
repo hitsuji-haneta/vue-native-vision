@@ -19,7 +19,7 @@ export default {
 
 <style scoped>
 .container {
-  background-color: red;
+  background-color: white;
   flex: 1;
   align-items: center;
   justify-content: center;

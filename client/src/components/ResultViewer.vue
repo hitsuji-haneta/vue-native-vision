@@ -1,16 +1,18 @@
 <template>
   <view class="container">
     <text>{{ text }}</text>
+    <image  v-if="imageUrl"  :style="{width: 200, height: 200}" :source="{uri: imageUrl}" />
   </view>
 </template>
 
 <script>
-import { db } from "../plugins/db";
+import { db, storage } from "../plugins/db";
 
 export default {
   data() {
     return {
-      text: "hello"
+      text: "hello",
+      imageUrl: null
     };
   },
   mounted() {
@@ -29,8 +31,15 @@ export default {
           this.text = `${descriptions[0]} ${scores[0]}点
 ${descriptions[1]} ${scores[1]}点
 ${descriptions[2]} ${scores[2]}点`;
+
+          this.getImages();
         }
       });
+    },
+    getImages: async function() {
+      const ref = storage.ref().child("test");
+      const url = await ref.getDownloadURL();
+      this.imageUrl = url;
     }
   }
 };
