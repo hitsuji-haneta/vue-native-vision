@@ -30,16 +30,20 @@ export const sendToVisionAPI = functions.storage
 
     const fileBucket = object.bucket;
     const bucket = admin.storage().bucket(fileBucket);
+    const db = admin.firestore();
     const tempFilePath = path.join(os.tmpdir(), fileName);
     await bucket.file(filePath).download({ destination: tempFilePath });
     console.log('Image downloaded locally to', tempFilePath);
 
     client
       .labelDetection(tempFilePath)
-      .then((results: any) => {
+      .then(async (results: any) => {
         const labels = results[0].labelAnnotations;
-        console.log('Labels:');
-        labels.forEach((label: any) => console.log(label.description));
+        await db
+          .collection('labels')
+          .doc(fileName)
+          .set({ labels });
+        console.log('Addition to firestore is complete: ', fileName);
       })
       .catch((err: any) => {
         console.error('ERROR:', err);
