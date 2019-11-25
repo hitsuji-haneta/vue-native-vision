@@ -11,7 +11,7 @@ import { AsyncStorage } from "react-native";
 import { VueNativeBase } from "native-base";
 import { AppLoading, Notifications } from "expo";
 import * as Permissions from "expo-permissions";
-// import * as Font from "expo-font";
+import * as Font from "expo-font";
 import uuid from "uuid/v4";
 import { firestorePlugin } from "vuefire";
 import App from "./App.vue";
@@ -31,7 +31,7 @@ export default {
   created: function() {
     try {
       this.isAppReady = false;
-      // this.loadFonts();
+      this.loadFonts();
       this.getUserId();
       this.isAppReady = true;
     } catch (err) {
@@ -40,13 +40,13 @@ export default {
     }
   },
   methods: {
-    // async loadFonts() {
-    //   await Font.loadAsync({
-    //     Roboto: require("../../node_modules/native-base/Fonts/Roboto.ttf"),
-    //     Roboto_medium: require("../../node_modules/native-base/Fonts/Roboto_medium.ttf"),
-    //     Ionicons: require("../../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf")
-    //   });
-    // },
+    async loadFonts() {
+      await Font.loadAsync({
+        Roboto: require("../../node_modules/native-base/Fonts/Roboto.ttf"),
+        Roboto_medium: require("../../node_modules/native-base/Fonts/Roboto_medium.ttf"),
+        Ionicons: require("../../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf")
+      });
+    },
     getUserId: async function() {
       let userId = await AsyncStorage.getItem("vueNativeVisionId");
       if (!userId) {
