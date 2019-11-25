@@ -21,12 +21,12 @@ Vue.use(firestorePlugin);
 
 export default {
   components: { App, AppLoading },
-  data() {
+  data: function() {
     return {
       isAppReady: false
     };
   },
-  created() {
+  created: function() {
     try {
       this.isAppReady = false;
       // this.loadFonts();
@@ -45,7 +45,7 @@ export default {
     //     Ionicons: require("../../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf")
     //   });
     // },
-    async getUserId() {
+    getUserId: async function() {
       let userId = await AsyncStorage.getItem("vueNativeVisionId");
       if (!userId) {
         userId = uuid();

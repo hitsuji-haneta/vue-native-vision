@@ -24,7 +24,7 @@ export default {
     };
   },
   computed: {
-    userId() {
+    userId: function() {
       return store.state.userId;
     }
   },

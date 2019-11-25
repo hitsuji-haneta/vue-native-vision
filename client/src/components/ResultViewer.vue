@@ -15,21 +15,21 @@ import { db, storage } from "../lib/db";
 import store from "../store";
 
 export default {
-  data() {
+  data: function() {
     return {
       result: "写真をあげてね",
       imageUrl: null
     };
   },
   computed: {
-    userId() {
+    userId: function() {
       return store.state.userId;
     },
-    isAnalyzing() {
+    isAnalyzing: function() {
       return store.state.isAnalyzing;
     }
   },
-  mounted() {
+  mounted: function() {
     this.getLabels();
   },
   methods: {
