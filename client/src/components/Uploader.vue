@@ -58,12 +58,11 @@ export default {
             duration: 2000
           });
           console.log("Image sended : ", uri);
-          // alert("success");
+          store.commit("setAnalysisStatus", true);
         }
       } catch (err) {
         console.error(err);
         alert(JSON.stringify(err));
-        // throw Error(err);
         Toast.show({
           text: 'アップロードに失敗しました',
           buttonText: "OK",

@@ -5,12 +5,16 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    userId: 'userId'
+    userId: '',
+    isAnalyzing: false
   },
   mutations: {
     setUserId(state, userId) {
       state.userId = userId;
       console.log('set!! ', state.userId);
+    },
+    setAnalysisStatus(state, isAnalyzing) {
+      state.isAnalyzing = isAnalyzing;
     }
   }
 });
