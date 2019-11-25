@@ -9,12 +9,14 @@
 import Vue from "vue-native-core";
 import { AsyncStorage } from "react-native";
 import { VueNativeBase } from "native-base";
-import { AppLoading } from "expo";
-import * as Font from "expo-font";
+import { AppLoading, Notifications } from "expo";
+import * as Permissions from "expo-permissions";
+// import * as Font from "expo-font";
 import uuid from "uuid/v4";
 import { firestorePlugin } from "vuefire";
 import App from "./App.vue";
 import store from "./store";
+import { db } from "./lib/db";
 
 Vue.use(VueNativeBase);
 Vue.use(firestorePlugin);
@@ -51,9 +53,32 @@ export default {
         userId = uuid();
         console.log("Make new userId:", userId);
         await AsyncStorage.setItem("vueNativeVisionId", userId);
+        await this.registerForPushNotifications(userId);
       }
       store.commit("setUserId", userId);
       console.log(userId);
+    },
+    registerForPushNotifications: async function(userId) {
+      const { status: existingStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS
+      );
+
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Permissions.askAsync(
+          Permissions.NOTIFICATIONS
+        );
+        finalStatus = status;
+      }
+
+      if (finalStatus === "granted") {
+        const token = await Notifications.getExpoPushTokenAsync();
+        await db
+          .collection("pushToken")
+          .doc(userId)
+          .set({ userId, token });
+        console.log("pushToken saved: ", token);
+      }
     }
   }
 };
